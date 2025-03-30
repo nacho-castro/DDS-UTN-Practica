@@ -32,14 +32,14 @@ class AlumnoTest {
     }
 
     @Test
-    @DisplayName("El alumno puede cursar Diseño")
+    @DisplayName("El alumno NO puede cursar Diseño sin correlativas anteriores")
     public void puedeCursarSinCorrelavitas(){
         Alumno alumno = new Alumno("Juan",314,Set.of(pdp,ads));
-        Assertions.assertTrue(alumno.puedeCursar(dds));
+        Assertions.assertFalse(alumno.puedeCursar(dds));
     }
 
     @Test
-    @DisplayName("El alumno NO puede cursar Diseño")
+    @DisplayName("El alumno NO puede cursar Diseño sin correlativas directas")
     public void noPuedeCursar(){
         Alumno alumno = new Alumno("Juan",314,Set.of(ads));
         Assertions.assertFalse(alumno.puedeCursar(dds));

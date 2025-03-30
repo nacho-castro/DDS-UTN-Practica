@@ -31,14 +31,11 @@ public class Alumno {
         return nombre;
     }
 
-    public Boolean puedeCursar(Materia materia){
-        for (Materia correlativa : materia.getCorrelativas()) {
-            if (!materiasAprobadas.contains(correlativa)) {
-                System.out.println("Rechazada: " + materia.getNombre());
-                System.out.println("Motivo: " + this.getNombre() + " NO tiene " + correlativa.getNombre() + " aprobada");
-                return false; //Si alguna correlativa no está aprobada, no puede cursar
-            }
-        }
-        return true; //Si tiene TODAS las correlativas correspondientes puede cursar
+    public Boolean puedeCursar(Materia materia) {
+        //Recursividad:
+        //Todas las correlativas directas deben estar aprobadas y debe tener las correlativas de aquellas.
+        return materia.getCorrelativas()
+                .stream()
+                .allMatch(correlativa -> materiasAprobadas.contains(correlativa) && puedeCursar(correlativa));
     }
 }
