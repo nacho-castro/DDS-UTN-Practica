@@ -1,3 +1,4 @@
+package entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +12,9 @@ public class Materia {
         this.correlativas = new HashSet<>();
     }
 
-    public void addCorrelativas(Materia materia){
-        this.correlativas.add(materia);
+    public Materia(String nombre, Set<Materia> correlativas) {
+        this.nombre = nombre;
+        this.correlativas = correlativas;
     }
 
     public Set<Materia> getCorrelativas() {
