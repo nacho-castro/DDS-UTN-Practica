@@ -1,0 +1,30 @@
+@startuml
+
+class Cancion{
+    - nombre: String
+    - album: Album
+    - cantLikes: int
+    - cantDislikes: int
+    - cantReproducciones: int
+    - anioLanzamiento:LocalDateTime
+    - ultReproduccion: LocalDateTime
+    - popularidad
+}
+
+class Album{
+    - nombre: String
+    - artista: Artista
+    - anioLanzamiento: int
+}
+
+class Artista{
+    - String nombre
+}
+
+class Icono{
+
+}
+
+Cancion o-- Album
+Album o-- Artista
+@enduml
