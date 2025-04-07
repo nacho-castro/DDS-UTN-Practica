@@ -4,4 +4,4 @@
 
 ## Ej 2. Tendencias Musicales
 
-... aún incompleto ...
+![Diagrama UML](tendencias-musicales/clases.png)

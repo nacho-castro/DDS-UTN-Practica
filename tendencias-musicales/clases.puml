@@ -1,20 +1,23 @@
 @startuml
 
 class Cancion{
-    - nombre: String
+    - titulo: String
     - album: Album
-    - cantLikes: int
-    - cantDislikes: int
-    - cantReproducciones: int
-    - anioLanzamiento:LocalDateTime
+    - cantLikes: Integer
+    - cantDislikes: Integer
+    - cantReproducciones: Integer
+    - anioLanzamiento: Integer
     - ultReproduccion: LocalDateTime
-    - popularidad
+    - popularidad: Popularidad
+    + reproducir(): String
+    + darLike(): Integer
+    + darDislike(): Integer
 }
 
 class Album{
     - nombre: String
     - artista: Artista
-    - anioLanzamiento: int
+    - anioLanzamiento: Integer
 }
 
 class Artista{
@@ -22,9 +25,40 @@ class Artista{
 }
 
 class Icono{
+    + texto(): String
+}
 
+interface Popularidad{
+    +obtenerLeyenda(Cancion cancion): String
+    +cambiarPopularidad(Cancion cancion, Popularidad popularidad): void
+    +actualizarPopularidad(Cancion cancion): void
+}
+
+class Normal{
+    -icono: String
+    +obtenerLeyenda(Cancion cancion): String
+    +cambiarPopularidad(Cancion cancion, Popularidad popularidad): void
+    +actualizarPopularidad(Cancion cancion): void
+}
+
+class Tendencia{
+    -icono: String
+    +obtenerLeyenda(Cancion cancion): String
+    +cambiarPopularidad(Cancion cancion, Popularidad popularidad): void
+    +actualizarPopularidad(Cancion cancion): void
+}
+
+class Auge{
+    -icono: String
+    +obtenerLeyenda(Cancion cancion): String
+    +cambiarPopularidad(Cancion cancion, Popularidad popularidad): void
+    +actualizarPopularidad(Cancion cancion): void
 }
 
 Cancion o-- Album
 Album o-- Artista
+Cancion *- Popularidad
+Popularidad <|.. Tendencia
+Popularidad <|.. Auge
+Popularidad <|.. Normal
 @enduml

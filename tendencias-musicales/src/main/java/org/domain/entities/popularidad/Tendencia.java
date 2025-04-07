@@ -30,6 +30,6 @@ public class Tendencia implements Popularidad {
 
     @Override
     public void cambiarPopularidad(Cancion cancion, Popularidad popularidad) {
-
+        cancion.setPopularidad(popularidad);
     }
 }
