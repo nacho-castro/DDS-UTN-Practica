@@ -1,5 +1,6 @@
 package org.domain.entities.popularidad;
 
+import lombok.Setter;
 import org.domain.entities.Cancion;
 import org.domain.entities.Icono;
 
@@ -8,6 +9,7 @@ public class Normal extends Popularidad {
     private Integer reproduccionesLocales = 0;
 
     //Atributos de la CLASE, NO de la instancia
+    @Setter
     private static Integer minReproducciones = 1000;
 
     @Override

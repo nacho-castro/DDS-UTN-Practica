@@ -1,5 +1,6 @@
 package org.domain.entities.popularidad;
 
+import lombok.Setter;
 import org.domain.entities.Cancion;
 import org.domain.entities.Icono;
 
@@ -9,6 +10,7 @@ public class Tendencia extends Popularidad {
     String icono = Icono.FIRE.texto();
 
     //Atributos de la CLASE. no de la instancia
+    @Setter
     private static Integer minHoras = 24;
 
     @Override
