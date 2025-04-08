@@ -31,63 +31,23 @@ public class Cancion {
 
     public String reproducir() {
         this.cantReproducciones++;
-
-        popularidad.actualizarPopularidad(this);
-        String mensaje = popularidad.obtenerLeyenda(this);
-
+        popularidad.reproducir(this);
         this.ultReproduccion = LocalDateTime.now();
-        return mensaje;
+        return popularidad.obtenerDetalle(this);
     }
 
     public Integer darLike() {
         this.cantLikes++;
-        popularidad.actualizarPopularidad(this);
         return cantLikes;
     }
 
     public Integer darDislike() {
         this.cantDislikes++;
-        popularidad.actualizarPopularidad(this);
         return cantDislikes;
-    }
-
-    public Integer getCantReproducciones() {
-        return cantReproducciones;
     }
 
     public String getNombreArtista() {
         return album.getArtista().getNombre();
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public Integer getCantLikes() {
-        return cantLikes;
-    }
-
-    public Integer getCantDislikes() {
-        return cantDislikes;
-    }
-
-    public LocalDateTime getUltReproduccion() {
-        return ultReproduccion;
-    }
-
-    public Popularidad getPopularidad() {
-        return popularidad;
-    }
-
-    public void setPopularidad(Popularidad popularidad) {
-        this.popularidad = popularidad;
-    }
-
-    public void setUltReproduccion(LocalDateTime ultReproduccion) {
-        this.ultReproduccion = ultReproduccion;
-    }
 }

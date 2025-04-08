@@ -3,26 +3,30 @@ package org.domain.entities.popularidad;
 import org.domain.entities.Cancion;
 import org.domain.entities.Icono;
 
-public class Normal implements Popularidad {
+public class Normal extends Popularidad {
     String icono = Icono.MUSICAL_NOTE.texto();
+    private Integer reproduccionesLocales = 0;
+
+    //Atributos de la CLASE, NO de la instancia
+    private static Integer minReproducciones = 1000;
 
     @Override
-    public void actualizarPopularidad(Cancion cancion) {
-        if (cancion.getCantReproducciones() > 1000) {
-            Popularidad enAuge = new Auge();
-            this.cambiarPopularidad(cancion, enAuge);
+    public void reproducir(Cancion cancion) {
+        this.reproduccionesLocales++;
+        if (this.reproduccionesLocales > minReproducciones) {
+            this.cambiarPopularidad(cancion, new Auge());
         }
     }
 
     @Override
     public String obtenerLeyenda(Cancion cancion) {
-        return this.icono + " - " + cancion.getNombreArtista()
+        return cancion.getNombreArtista()
                 + " - " + cancion.getAlbum().getNombre()
                 + " - " + cancion.getTitulo();
     }
 
     @Override
-    public void cambiarPopularidad(Cancion cancion, Popularidad popularidad) {
-        cancion.setPopularidad(popularidad);
+    protected String obtenerIcono() {
+        return this.icono;
     }
 }

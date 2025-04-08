@@ -5,31 +5,32 @@ import org.domain.entities.Icono;
 
 import java.time.LocalDateTime;
 
-public class Tendencia implements Popularidad {
+public class Tendencia extends Popularidad {
     String icono = Icono.FIRE.texto();
 
+    //Atributos de la CLASE. no de la instancia
+    private static Integer minHoras = 24;
+
     @Override
-    public void actualizarPopularidad(Cancion cancion) {
+    public void reproducir(Cancion cancion) {
         LocalDateTime ultReproduccion = cancion.getUltReproduccion();
         LocalDateTime hoy = LocalDateTime.now();
 
-        if (ultReproduccion.isBefore(hoy.minusHours(24))) {
-            Normal normal = new Normal();
-            this.cambiarPopularidad(cancion, normal);
+        if (ultReproduccion.isBefore(hoy.minusHours(minHoras))) {
+            this.cambiarPopularidad(cancion, new Normal());
         }
     }
 
     @Override
     public String obtenerLeyenda(Cancion cancion) {
-        return this.icono + " - " +
-                cancion.getTitulo()
+        return cancion.getTitulo()
                 + " - " + cancion.getNombreArtista()
                 + " (" + cancion.getAlbum().getNombre()
                 + " - " + cancion.getAlbum().getAnioLanzamiento() + ")";
     }
 
     @Override
-    public void cambiarPopularidad(Cancion cancion, Popularidad popularidad) {
-        cancion.setPopularidad(popularidad);
+    protected String obtenerIcono() {
+        return this.icono;
     }
 }

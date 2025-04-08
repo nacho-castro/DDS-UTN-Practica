@@ -50,6 +50,12 @@ public class CancionTest {
     @Test
     @DisplayName("La cancion se viraliza y tiene popularidad Tendencia")
     public void popularidadTendencia(){
+        for(int i = 0; i < 2000; i++){
+            cancion.reproducir();
+        }
+        //En auge
+        Assertions.assertInstanceOf(Auge.class,cancion.getPopularidad());
+
         for(int i = 0; i < 50001; i++){
             cancion.reproducir();
             cancion.darLike();
@@ -62,12 +68,39 @@ public class CancionTest {
     @Test
     @DisplayName("La cancion Tendencia no se escucha en 24hs y vuelve a normal")
     public void popularidad24horas(){
+        for(int i = 0; i < 2000; i++){
+            cancion.reproducir();
+        }
+        //En auge
+        Assertions.assertInstanceOf(Auge.class,cancion.getPopularidad());
+
         for(int i = 0; i < 50001; i++){
             cancion.darLike();
             cancion.reproducir();
         }
-        cancion.setUltReproduccion(LocalDateTime.of(2001, 1, 1, 12,0));
+        cancion.setUltReproduccion(LocalDateTime.of(2024, 1, 1, 12,0));
         System.out.println(cancion.reproducir());
         Assertions.assertInstanceOf(Normal.class,cancion.getPopularidad());
+    }
+
+    @Test
+    @DisplayName("La cancion Tendencia se escucha dentro de las 24hs")
+    public void popularidad10horas(){
+        for(int i = 0; i < 2000; i++){
+            cancion.reproducir();
+        }
+        //En auge
+        Assertions.assertInstanceOf(Auge.class,cancion.getPopularidad());
+
+        for(int i = 0; i < 50001; i++){
+            cancion.darLike();
+            cancion.reproducir();
+        }//es tendencia
+
+        LocalDateTime fechaActualMenos10hs = LocalDateTime.now().minusHours(10);
+        cancion.setUltReproduccion(fechaActualMenos10hs);
+        System.out.println(cancion.reproducir());
+
+        Assertions.assertInstanceOf(Tendencia.class,cancion.getPopularidad());
     }
 }

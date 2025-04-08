@@ -1,26 +1,34 @@
 package org.domain.entities.popularidad;
 
+import lombok.Setter;
 import org.domain.entities.Cancion;
 import org.domain.entities.Icono;
 
-public class Auge implements Popularidad {
+public class Auge extends Popularidad {
     String icono = Icono.ROCKET.texto();
+    private Integer reproduccionesLocales = 0;
+
+    //Atributos de la CLASE. no de la instancia
+    @Setter
+    private static Integer minReproducciones = 50000;
+    @Setter
+    private static Integer minLikes = 20000;
+    @Setter
+    private static Integer minDislikes = 5000;
 
     @Override
-    public void actualizarPopularidad(Cancion cancion){
-        if (cancion.getCantReproducciones() > 50000 && cancion.getCantLikes() > 20000) {
-            Popularidad tendencia = new Tendencia();
-            this.cambiarPopularidad(cancion, tendencia);
-        } else if (cancion.getCantDislikes() > 5000) {
-            Popularidad normal = new Normal();
-            this.cambiarPopularidad(cancion, normal);
+    public void reproducir(Cancion cancion){
+        this.reproduccionesLocales++;
+        if (this.reproduccionesLocales > minReproducciones && cancion.getCantLikes() > minLikes) {
+            this.cambiarPopularidad(cancion, new Tendencia());
+        } else if (cancion.getCantDislikes() > minDislikes) {
+            this.cambiarPopularidad(cancion, new Normal());
         }
     }
 
     @Override
     public String obtenerLeyenda(Cancion cancion) {
-        return this.icono + " - " +
-                cancion.getNombreArtista()
+        return cancion.getNombreArtista()
                 + " - "
                 + cancion.getTitulo()
                 + " (" + cancion.getAlbum().getNombre()
@@ -28,7 +36,7 @@ public class Auge implements Popularidad {
     }
 
     @Override
-    public void cambiarPopularidad(Cancion cancion, Popularidad popularidad) {
-        cancion.setPopularidad(popularidad);
+    protected String obtenerIcono() {
+        return this.icono;
     }
 }

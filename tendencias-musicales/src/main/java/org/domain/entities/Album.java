@@ -16,14 +16,6 @@ public class Album {
         this.anioLanzamiento = anioLanzamiento;
     }
 
-    public Artista getArtista() {
-        return artista;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
     public int getAnioLanzamiento() {
         return anioLanzamiento;
     }

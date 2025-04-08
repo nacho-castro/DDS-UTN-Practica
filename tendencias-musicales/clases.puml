@@ -28,10 +28,12 @@ class Icono{
     + texto(): String
 }
 
-interface Popularidad{
-    +obtenerLeyenda(Cancion cancion): String
+abstract class Popularidad{
+    +obtenerDetalle(Cancion cancion): String
     +cambiarPopularidad(Cancion cancion, Popularidad popularidad): void
-    +actualizarPopularidad(Cancion cancion): void
+    #abstract obtenerLeyenda(Cancion cancion): String
+    #abstract obtenerIcono(): String
+    #abstract reproducir(Cancion cancion): void
 }
 
 class Normal{
@@ -55,9 +57,15 @@ class Auge{
     +actualizarPopularidad(Cancion cancion): void
 }
 
-Cancion o-- Album
-Album o-- Artista
+Cancion o--> Album
+Album o--> Artista
 Cancion *- Popularidad
+
+Normal ..> Auge
+Auge ..> Normal
+Auge ..> Tendencia
+Tendencia ..> Normal
+
 Popularidad <|.. Tendencia
 Popularidad <|.. Auge
 Popularidad <|.. Normal
